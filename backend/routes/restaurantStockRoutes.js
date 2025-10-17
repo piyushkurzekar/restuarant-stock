@@ -1,18 +1,20 @@
 import express from "express";
 import {
-  addRestaurantStock,
   getRestaurantStocks,
   deleteRestaurantStock,
   updateUsedStock,
+   addOrUpdateStock
 } from "../controllers/restaurantStockController.js";
 import { supabase } from "../supabaseClient.js";
 
 const router = express.Router();
 
-router.post("/add", addRestaurantStock);
+
 router.get("/all", getRestaurantStocks);
 router.delete("/:id", deleteRestaurantStock);
 router.put("/update-used/:id", updateUsedStock);
+router.post("/add-or-update", addOrUpdateStock);
+
 
 
 // routes/restaurantStockRoutes.js

@@ -16,6 +16,8 @@ const Stocks = () => {
 
 
   const [showModal, setShowModal] = useState(false);
+  
+ const today = new Date().toISOString().split("T")[0]; 
 
   const [items, setItems] = useState([]);
   const [formData, setFormData] = useState({
@@ -28,9 +30,10 @@ const Stocks = () => {
     received_by: "",
     supplier_name: "",
     payment_mode: "",
-    date: "",
+    date:  today, // ✅ default to today
   });
 
+ 
   // 🔹 Fetch all restaurant stocks
   const fetchStocks = async () => {
     try {
@@ -58,38 +61,50 @@ const Stocks = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 🔹 Add new item
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`${API_URL}/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Calculate total price
+    const total_price = Number(formData.quantity) * Number(formData.price_per_unit);
 
-      if (!res.ok) throw new Error(data.error || "Failed to add");
+    // Call Add/Update API
+    const res = await fetch(`${API_URL}/add-or-update`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...formData,
+        quantity: Number(formData.quantity),
+        price_per_unit: Number(formData.price_per_unit),
+        total_price,
+      }),
+    });
 
-      alert("✅ Item added successfully!");
-      setFormData({
-        item_name: "",
-        category: "",
-        unit: "",
-        quantity: "",
-        price_per_unit: "",
-        used_today: 0,
-        received_by: "",
-        supplier_name: "",
-        payment_mode: "",
-        date: "",
-      });
-      fetchStocks(); // refresh data
-      setShowModal(false);
-    } catch (err) {
-      alert("❌ " + err.message);
-    }
-  };
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Failed to add/update stock");
+
+    alert(data.message); // shows ✅ Existing stock updated or 🆕 New stock added
+    fetchStocks(); // refresh table
+
+    // Reset form
+    setFormData({
+      item_name: "",
+      category: "",
+      unit: "",
+      quantity: "",
+      price_per_unit: "",
+      used_today: 0,
+      received_by: "",
+      supplier_name: "",
+      payment_mode: "",
+      date: today,
+    });
+    setShowModal(false);
+  } catch (err) {
+    console.error("Error adding/updating stock:", err);
+    alert("❌ " + err.message);
+  }
+};
+
 
 
   const [activeCategory, setActiveCategory] = useState("All items");
