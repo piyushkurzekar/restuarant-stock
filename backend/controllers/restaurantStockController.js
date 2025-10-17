@@ -66,22 +66,44 @@ export const getRestaurantStocks = async (req, res) => {
 
 
 // Update used_today for an item
-export const updateUsedToday = async (req, res) => {
+// ✅ Update "used_today" and "remaining_stock"
+export const updateUsedStock = async (req, res) => {
   try {
     const { id } = req.params;
-    const { used_today} = req.body;
+    const { used_today } = req.body;
 
-    const { error } = await supabase
+    // Fetch current record
+    const { data: stock, error: fetchError } = await supabase
       .from("restaurant_stocks")
-      .update({ used_today })
+      .select("quantity, remaining_stock, used_today")
+      .eq("id", id)
+      .single();
+
+    if (fetchError || !stock) {
+      throw fetchError || new Error("Stock item not found");
+    }
+
+    // 🧠 Calculate new remaining_stock
+    // (Subtract only the difference between old and new used_today)
+    const usedDifference = used_today - stock.used_today;
+    let newRemaining = stock.remaining_stock - usedDifference;
+
+    if (newRemaining < 0) newRemaining = 0;
+
+    // Update in Supabase
+    const { error: updateError } = await supabase
+      .from("restaurant_stocks")
+      .update({
+        used_today,
+        remaining_stock: newRemaining,
+      })
       .eq("id", id);
 
-    if (error) return res.status(400).json({ error: error.message });
+    if (updateError) throw updateError;
 
     res.json({ message: "Stock updated successfully" });
-
-
   } catch (err) {
+    console.error("Error updating stock:", err.message);
     res.status(500).json({ error: err.message });
   }
 };

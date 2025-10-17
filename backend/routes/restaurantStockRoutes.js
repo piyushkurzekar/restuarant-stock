@@ -3,7 +3,7 @@ import {
   addRestaurantStock,
   getRestaurantStocks,
   deleteRestaurantStock,
-  updateUsedToday,
+  updateUsedStock,
 } from "../controllers/restaurantStockController.js";
 import { supabase } from "../supabaseClient.js";
 
@@ -12,7 +12,7 @@ const router = express.Router();
 router.post("/add", addRestaurantStock);
 router.get("/all", getRestaurantStocks);
 router.delete("/:id", deleteRestaurantStock);
-router.put("/update-used/:id", updateUsedToday);
+router.put("/update-used/:id", updateUsedStock);
 
 
 // routes/restaurantStockRoutes.js

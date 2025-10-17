@@ -168,7 +168,8 @@ const InventoryTable = ({ items: propsItems, fetchStocks }) => {
                                             item.remaining_stock <= 10 ? "600" : "normal",
                                     }}
                                 >
-                                    {item.quantity - (item.used_today || 0)}
+                                   {item.remaining_stock}
+
                                 </td>
 
                                 <td style={tdStyle}>{item.received_by}</td>
