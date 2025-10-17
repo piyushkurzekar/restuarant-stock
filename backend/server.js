@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 //  Reset used_today every midnight
-cron.schedule("* * * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   try {
     console.log("🔄 Resetting daily used stock values...");
     const { error } = await supabase
