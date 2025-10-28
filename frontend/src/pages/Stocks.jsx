@@ -470,7 +470,7 @@ const Stocks = () => {
                 />
               </div>
 
-              <div style={{ marginTop: "8px" }}>
+              {/* <div style={{ marginTop: "8px" }}>
                 <label>Used Today</label>
                 <input
                   type="number"
@@ -480,7 +480,7 @@ const Stocks = () => {
                   placeholder="Enter used quantity today"
                   style={inputStyle}
                 />
-              </div>
+              </div> */}
 
               <div style={{ marginTop: "8px" }}>
                 <label>Supplier Name</label>
