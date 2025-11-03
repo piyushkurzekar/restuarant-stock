@@ -100,11 +100,11 @@ const RecentTransactions = () => {
         setFilteredTransactions(updated);
     };
 
-    const handlePaymentCategoryChange = (index, value) => {
-        const updated = [...filteredTransactions];
-        updated[index].paymentCategory = value;
-        setFilteredTransactions(updated);
-    };
+    // const handlePaymentCategoryChange = (index, value) => {
+    //     const updated = [...filteredTransactions];
+    //     updated[index].paymentCategory = value;
+    //     setFilteredTransactions(updated);
+    // };
 
     // 📌 Apply both date and category filters
     const applyFilters = (from, to, category) => {

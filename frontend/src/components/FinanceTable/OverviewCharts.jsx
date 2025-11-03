@@ -13,14 +13,14 @@ import {
     CartesianGrid,
 } from "recharts";
 
-const expenseBreakdown = [
-    { name: "Staff Salaries", value: 18000, color: "#0f9d58" },
-    { name: "Maintenance", value: 8000, color: "#2b6cb0" },
-    { name: "Utilities", value: 5000, color: "#f59e0b" },
-    { name: "Supplies", value: 4000, color: "#ef4444" },
-    { name: "Marketing", value: 3000, color: "#8b5cf6" },
-    { name: "Other", value: 3000, color: "#6b7280" },
-];
+// const expenseBreakdown = [
+//     { name: "Staff Salaries", value: 18000, color: "#0f9d58" },
+//     { name: "Maintenance", value: 8000, color: "#2b6cb0" },
+//     { name: "Utilities", value: 5000, color: "#f59e0b" },
+//     { name: "Supplies", value: 4000, color: "#ef4444" },
+//     { name: "Marketing", value: 3000, color: "#8b5cf6" },
+//     { name: "Other", value: 3000, color: "#6b7280" },
+// ];
 
 const revenueData = [
     { month: "Jan", revenue: 4000, expenses: 2400 },
