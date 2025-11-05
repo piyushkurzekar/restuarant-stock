@@ -144,6 +144,15 @@ const TakeOrders = () => {
               onChange={(e) => setOrderData({ ...orderData, tableNumber: e.target.value })}
             />
           </div>
+       
+          <div className="=col">
+            <input
+              type="date"
+              className="form-control" style={{ width: "250px", marginLeft: "582px", marginTop: "-37px" }}
+              value={orderData.date}
+              onChange={(e) => setOrderData({ ...orderData, date: e.target.value })}
+            />
+          </div>
           <div className="=col">
             <input
               type="date"
@@ -155,7 +164,7 @@ const TakeOrders = () => {
         </div>
 
         {/* Category Filter */}
-        <div className="mb-3">
+        {/* <div className="mb-3">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -165,7 +174,7 @@ const TakeOrders = () => {
               {cat}
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* Menu Items */}
         <MenuItems
