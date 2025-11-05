@@ -255,7 +255,7 @@ const Finance = () => {
             <h6>Total Revenue</h6>
             <h4 className="fw-bold text-dark">₹{totalRevenue.toLocaleString()}</h4>
             <small className="text-success">
-              ▲ Based on database values
+              ▲ Based on database table
             </small>
           </div>
         </div>
